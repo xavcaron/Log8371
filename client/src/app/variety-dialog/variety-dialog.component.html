@@ -1,0 +1,219 @@
+<div class="container">
+  <h1 *ngIf="isEditing">Edit Existing Variety</h1>
+  <h1 *ngIf="!isEditing">Create New Variety</h1>
+  <mat-form-field>
+    <mat-label> Variety Name </mat-label>
+    <input type="text" matInput [(ngModel)]="variety.varietyname" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Market Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="datepicker"
+      [(ngModel)]="variety.marketdate"
+    />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    <mat-datepicker #datepicker>
+      <mat-datepicker-actions>
+        <button mat-button matDatepickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDatepickerApply>
+          Apply
+        </button>
+      </mat-datepicker-actions>
+    </mat-datepicker>
+    <mat-datepicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Sowing Description</mat-label>
+    <textarea
+      type="text"
+      matInput
+      [(ngModel)]="variety.sowingdescription"
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Planting Description</mat-label>
+    <textarea
+      type="text"
+      matInput
+      [(ngModel)]="variety.plantingdescription"
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Care Description</mat-label>
+    <textarea
+      type="text"
+      matInput
+      [(ngModel)]="variety.caredescription"
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Gather Description</mat-label>
+    <textarea
+      type="text"
+      matInput
+      [(ngModel)]="variety.gatheringdescription"
+    ></textarea>
+  </mat-form-field>
+  <div class="dates">
+    <mat-form-field>
+      <mat-label>Planting period start</mat-label>
+      <mat-select [(ngModel)]="variety.plantingperiodstart">
+        <mat-option *ngFor="let month of months" [value]="month">
+          {{ month }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Planting period end</mat-label>
+      <mat-select [(ngModel)]="variety.plantingperiodend">
+        <mat-option *ngFor="let month of months" [value]="month">
+          {{ month }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div></div>
+    <mat-form-field>
+      <mat-label>Gathering period start</mat-label>
+      <mat-select [(ngModel)]="variety.gatheringperiodstart">
+        <mat-option *ngFor="let month of months" [value]="month">
+          {{ month }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Gathering period end</mat-label>
+      <mat-select [(ngModel)]="variety.gatheringperiodend">
+        <mat-option *ngFor="let month of months" [value]="month">
+          {{ month }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <mat-label>General comment</mat-label>
+    <textarea
+      type="text"
+      matInput
+      [(ngModel)]="variety.generalcomment"
+    ></textarea>
+  </mat-form-field>
+  <h3>Seed Makers</h3>
+  <mat-card *ngFor="let seed of existingSeeds.concat(selectedSeeds)">
+    <mat-form-field>
+      <mat-label>Seed Maker</mat-label>
+      <mat-select [(ngModel)]="seed.seedmakerid">
+        <mat-option
+          *ngFor="let seedMaker of seedMakers"
+          [value]="seedMaker.seedmakerid"
+        >
+          {{ seedMaker.seedmakername }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-radio-group
+      [(ngModel)]="seed.isorganic"
+      [ngModelOptions]="{ standalone: true }"
+    >
+      <mat-radio-button [value]="true">Organic </mat-radio-button>
+      <mat-radio-button [value]="false">Regular </mat-radio-button>
+    </mat-radio-group>
+    <button mat-stroked-button (click)="deleteSeed(seed)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card>
+
+  <button class="add-button" mat-stroked-button (click)="addSeedMaker()">
+    <mat-icon>add</mat-icon> Add Seed Maker
+  </button>
+  <h3>Compatible Soil Types</h3>
+  <mat-card
+    *ngFor="
+      let varietySoilType of existingVarietySoilTypes.concat(varietySoilTypes)
+    "
+  >
+    <mat-form-field>
+      <mat-label>Soil Type</mat-label>
+      <mat-select [(ngModel)]="varietySoilType.soiltypeid">
+        <mat-option
+          *ngFor="let soilType of soilTypes"
+          [value]="soilType.soiltypeid"
+        >
+          {{ soilType.soiltypename }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-label>Description </mat-label>
+    <mat-form-field>
+      <textarea
+        type="text"
+        matInput
+        [(ngModel)]="varietySoilType.adaptationdescription"
+      ></textarea>
+    </mat-form-field>
+    <button mat-stroked-button (click)="deleteSoilType(varietySoilType)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card>
+
+  <button class="add-button" mat-stroked-button (click)="addVarietySoilType()">
+    <mat-icon>add</mat-icon> Add Soil Type Adaptation
+  </button>
+  <h3>Plants From This Variety</h3>
+  <mat-card *ngFor="let plant of existingPlants.concat(selectedPlants)">
+    <mat-form-field>
+      <mat-label> Plant Binomial Name </mat-label>
+      <input
+        [disabled]="isEditing"
+        type="text"
+        matInput
+        [(ngModel)]="plant.binomialname"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Common Name </mat-label>
+      <input type="text" matInput [(ngModel)]="plant.commonname" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Plant Category </mat-label>
+      <input type="text" matInput [(ngModel)]="plant.plantcategory" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Plant Type </mat-label>
+      <input type="text" matInput [(ngModel)]="plant.planttype" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label> Plant Sub Type </mat-label>
+      <input type="text" matInput [(ngModel)]="plant.plantsubtype" />
+    </mat-form-field>
+    <button mat-stroked-button (click)="deletePlant(plant)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card>
+
+  <button class="add-button" mat-stroked-button (click)="addPlant()">
+    <mat-icon>add</mat-icon> Add Plant
+  </button>
+
+  <button
+    mat-stroked-button
+    class="confirm"
+    *ngIf="!isEditing"
+    (click)="pushNewVariety()"
+  >
+    <mat-icon>checkmark</mat-icon> Add variety
+  </button>
+  <button
+    mat-stroked-button
+    class="confirm"
+    *ngIf="isEditing"
+    (click)="editVariety()"
+  >
+    <mat-icon>edit</mat-icon> Edit variety
+  </button>
+  <button mat-stroked-button (click)="closeDialog()">
+    <mat-icon>cancel</mat-icon> Cancel
+  </button>
+</div>

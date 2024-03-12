@@ -1,0 +1,43 @@
+<mat-card class="variety-card">
+  <mat-card-content>
+    <mat-card-title>{{ variety.varietyname }}</mat-card-title>
+    <div><strong>Name: </strong> {{ variety.varietyname }}</div>
+    <div><strong>Id: </strong> {{ variety.varietyid }}</div>
+    <div *ngIf="variety.marketdate">
+      <strong>Market Date: </strong>{{ variety.marketdate.slice(0, 10) }}
+    </div>
+    <div *ngIf="variety.sowingdescription">
+      <strong>Sowing Description: </strong>{{ variety.sowingdescription }}
+    </div>
+    <div *ngIf="variety.plantingdescription">
+      <strong>Planting Description: </strong>{{ variety.plantingdescription }}
+    </div>
+    <div *ngIf="variety.caredescription">
+      <strong>Care Description: </strong>{{ variety.caredescription }}
+    </div>
+    <div *ngIf="variety.gatheringdescription">
+      <strong>Gathering Description: </strong>{{ variety.gatheringdescription }}
+    </div>
+    <div *ngIf="variety.plantingperiodstart && variety.plantingperiodend">
+      <strong>Planting Period: </strong>from
+      {{ variety.plantingperiodstart }} to
+      {{ variety.plantingperiodend }}
+    </div>
+    <div *ngIf="variety.gatheringperiodstart && variety.gatheringperiodend">
+      <strong>Gathering Period: </strong>from
+      {{ variety.gatheringperiodstart }} to
+      {{ variety.gatheringperiodend }}
+    </div>
+    <div *ngIf="variety.generalcomment">
+      <strong>General Comment: </strong>{{ variety.generalcomment }}
+    </div>
+    <div>
+      <button mat-icon-button (click)="deleteVariety()">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button (click)="openEditionDialog()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

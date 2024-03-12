@@ -1,0 +1,29 @@
+.container {
+  overflow: auto;
+  display: grid;
+  max-height: 80vh;
+}
+
+.add-button {
+  width: fit-content;
+}
+
+.confirm {
+  margin-top: 10px;
+}
+
+mat-card {
+  margin: 2%;
+  display: grid;
+}
+
+mat-radio-group {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-evenly;
+}
+
+h3 {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}

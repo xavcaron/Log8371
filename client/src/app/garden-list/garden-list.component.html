@@ -1,0 +1,17 @@
+<h1 id="title">Garden list</h1>
+
+<div id="select">
+  <h2>Select the garden to display:</h2>
+  <mat-form-field>
+    <mat-label>Garden to display</mat-label>
+    <mat-select [(value)]="selectedGarden">
+      <mat-option *ngFor="let garden of gardens" [value]="garden">
+        {{ garden.gardenname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div id="main">
+  <app-garden-card [garden]="selectedGarden"></app-garden-card>
+</div>
