@@ -1,0 +1,27 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand title" href="/">INF3710 - TP5</a>
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" routerLink="/gardens">Garden List</a>
+      <a class="nav-item nav-link active" routerLink="/plants">Search Plant</a>
+      <a class="nav-item nav-link active" routerLink="/varieties">
+        Variety List
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="home" *ngIf="route == ''">
+  <p>Welcome to Plateau Mont-Royal Gardens</p>
+  <button type="button" class="btn" routerLink="/gardens">
+    Check Garden List &#10140;
+  </button>
+  <button type="button" class="btn" routerLink="/varieties">
+    Manage Varieties &#10140;
+  </button>
+  <button type="button" class="btn" routerLink="/plants">
+    Search Specific Plants &#10140;
+  </button>
+</div>
+
+<router-outlet></router-outlet>

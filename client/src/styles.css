@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+:root {
+  --theme-purple: #9a75f0;
+  --theme-purple-hover: #9a75f033;
+  --theme-purple-placeholder: #9a75f0bb;
+  --theme-blue: #6e9eeb;
+  --theme-blue-hover: #6e9eeb33;
+  --theme-blue-placeholder: #6e9eebbb;
+  --theme-lightblue: #14f2e0;
+  --theme-lightblue-hover: #14f2e033;
+  --theme-lightblue-placeholder: #14f2e0bb;
+  --theme-background: #e2e2e2;
+}
+
+.btn-primary {
+  margin-top: 10px;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

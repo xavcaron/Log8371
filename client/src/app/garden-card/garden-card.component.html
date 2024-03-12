@@ -1,0 +1,104 @@
+<mat-card *ngIf="garden" class="garden-card">
+  <mat-card-title>{{ garden.gardenname }}</mat-card-title>
+  <mat-tab-group>
+    <mat-tab label="General">
+      <h3><strong>Name: </strong>{{ garden.gardenname }}</h3>
+      <h3><strong>ID: </strong>{{ garden.gardenid }}</h3>
+      <h3><strong>Surface area: </strong>{{ garden.gardensurfacearea }}</h3>
+    </mat-tab>
+    <mat-tab label="Categories">
+      <h3 *ngIf="garden.isornamentalgarden">
+        <strong>Ornamental Garden&nbsp;&nbsp;&nbsp;</strong>
+      </h3>
+      <h3 *ngIf="garden.isvegetablegarden">
+        <strong>Vegetable Garden&nbsp;&nbsp;&nbsp;</strong>
+        <em>Soil Type: {{ garden.soiltype }}</em>
+      </h3>
+      <h3 *ngIf="garden.isorchardgarden">
+        <strong>Orchard Garden&nbsp;&nbsp;&nbsp;</strong>
+        <em>Maximum authorized height: {{ garden.maxauthorizedheight }}</em>
+      </h3>
+    </mat-tab>
+    <mat-tab label="Varieties">
+      <h2>Parcels:</h2>
+      <mat-tab-group class="tab" [selectedIndex]="0">
+        <mat-tab
+          *ngFor="let parcel of parcels"
+          [label]="'parcelID: ' + parcel.parcelid"
+        >
+          <h3><strong>Coordinates: </strong>{{ parcel.parcelcoordinates }}</h3>
+          <h3><strong>Dimensions: </strong>{{ parcel.parceldimensions }}</h3>
+          <h2>Strips:</h2>
+          <mat-tab-group class="tab" [selectedIndex]="0">
+            <mat-tab
+              *ngFor="let strip of strips.get(parcel.parcelid)"
+              [label]="'stripNo: ' + strip.stripnumber"
+            >
+              <h3><strong>Number: </strong>{{ strip.stripnumber }}</h3>
+              <h3>
+                <strong>Geographic coordinates: </strong>
+                {{ strip.geographiccoordinates }}
+              </h3>
+              <h2>Varieties:</h2>
+              <mat-tab-group class="tab" [selectedIndex]="0">
+                <mat-tab
+                  *ngFor="
+                    let variety of varieties.get(
+                      strip.parcelid.toString() + strip.stripnumber.toString()
+                    )
+                  "
+                  [label]="variety.varietyname"
+                >
+                  <div><strong>Name: </strong> {{ variety.varietyname }}</div>
+                  <div><strong>Id: </strong> {{ variety.varietyid }}</div>
+                  <div *ngIf="variety.marketdate">
+                    <strong>Market Date: </strong
+                    >{{ variety.marketdate.slice(0, 10) }}
+                  </div>
+                  <div *ngIf="variety.sowingdescription">
+                    <strong>Sowing Description: </strong
+                    >{{ variety.sowingdescription }}
+                  </div>
+                  <div *ngIf="variety.plantingdescription">
+                    <strong>Planting Description: </strong
+                    >{{ variety.plantingdescription }}
+                  </div>
+                  <div *ngIf="variety.caredescription">
+                    <strong>Care Description: </strong
+                    >{{ variety.caredescription }}
+                  </div>
+                  <div *ngIf="variety.gatheringdescription">
+                    <strong>Gathering Description: </strong
+                    >{{ variety.gatheringdescription }}
+                  </div>
+                  <div
+                    *ngIf="
+                      variety.plantingperiodstart && variety.plantingperiodend
+                    "
+                  >
+                    <strong>Planting Period: </strong>from
+                    {{ variety.plantingperiodstart }} to
+                    {{ variety.plantingperiodend }}
+                  </div>
+                  <div
+                    *ngIf="
+                      variety.gatheringperiodstart && variety.gatheringperiodend
+                    "
+                  >
+                    <strong>Gathering Period: </strong>from
+                    {{ variety.gatheringperiodstart }} to
+                    {{ variety.gatheringperiodend }}
+                  </div>
+                  <div *ngIf="variety.generalcomment">
+                    <strong>General Comment: </strong
+                    >{{ variety.generalcomment }}
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

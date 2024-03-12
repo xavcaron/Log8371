@@ -1,0 +1,18 @@
+<h1 id="title">Search a plant</h1>
+
+<div id="input">
+  <h2>Enter plant name to search:</h2>
+  <mat-form-field>
+    <mat-label>Enter plant name or leave empty to see all plants</mat-label>
+    <input
+      matInput
+      [(ngModel)]="plantNameSearchQuery"
+      (keyup.enter)="search()"
+    />
+  </mat-form-field>
+  <button mat-stroked-button (click)="search()">Search</button>
+</div>
+
+<div id="main">
+  <app-plant-card *ngFor="let plant of plants" [plant]="plant"></app-plant-card>
+</div>

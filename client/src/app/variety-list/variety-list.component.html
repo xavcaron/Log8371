@@ -1,0 +1,11 @@
+<h1 class="title">Varieties</h1>
+<button mat-stroked-button (click)="openAddVarietyDialog()" class="add-button">
+  <mat-icon>add</mat-icon>Add new variety
+</button>
+<div id="main">
+  <app-variety-view-card
+    *ngFor="let variety of varieties"
+    [variety]="variety"
+    (refresh)="refreshVarietyList()"
+  ></app-variety-view-card>
+</div>
